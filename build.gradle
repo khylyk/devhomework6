@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+    id "org.flywaydb.flyway" version "9.8.1"
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'com.h2database:h2:2.1.214'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation group: 'org.flywaydb', name: 'flyway-mysql', version: '9.20.0'
+    implementation 'org.flywaydb:flyway-core:9.20.0'
+
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+flyway {
+    url = 'jdbc:mysql://127.0.0.1:3306/module6db'
+    user = 'ana'
+    password = '123321'
+    locations = ['classpath:db/migration']
+}
+
+flywayMigrate.dependsOn classes
